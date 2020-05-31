@@ -1,0 +1,32 @@
+---
+- name: install required packages via apt
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - libffi-dev
+    - libssl-dev
+    - python3
+    - python3-pip
+    - python3-setuptools
+
+- name: Download docker installation script
+  get_url:
+    url: https://get.docker.com
+    dest: /home/pi/get-docker.sh
+
+- name: Give execute permissions
+  file:
+    path: /home/pi/get-docker.sh
+    owner: pi
+    group: pi
+    mode: '0744'
+
+- name: Run installation script
+  shell: /home/pi/get-docker.sh
+  args:
+    creates: /usr/bin/docker
+
+- name: install docker-compose with pip
+  pip:
+    name: docker-compose
+    executable: pip3

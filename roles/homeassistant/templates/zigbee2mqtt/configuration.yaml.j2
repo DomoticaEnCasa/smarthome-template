@@ -1,0 +1,10 @@
+homeassistant: true
+permit_join: {{ zigbee2mqtt.permit_join }}
+mqtt:
+  base_topic: homeassistant
+  server: 'mqtt://localhost'
+serial:
+  port: /dev/ttyACM0
+
+devices:
+  {{ zigbee2mqtt.devices | to_nice_yaml(width=80, indent=2) | indent(2) }}

@@ -1,0 +1,5 @@
+zigbee2mqtt:
+  permit_join: true
+  devices:
+    '0x00158....':
+      friendly_name: 'living_room.sensor.temperature_humidity.1'

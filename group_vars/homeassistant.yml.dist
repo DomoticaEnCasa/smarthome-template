@@ -1,0 +1,80 @@
+homeassistant:
+  configuration:
+    mqtt:
+      broker: 127.0.0.1
+      port: 1883
+
+  ui_lovelace:
+    badges:
+      - entity: binary_sensor.updater
+      - entity: binary_sensor.0x00158....
+      - entity: sun.sun
+    cards:
+      - entity: weather.casa
+        type: weather-forecast
+      - entities:
+          - entity: sensor.0x00158...
+            name: Temperature
+        hours_to_show: 24
+        refresh_interval: 0
+        type: history-graph
+        title: "[Livingroom] Temperature 1"
+      - entities:
+          - sensor.0x00158d000346c326_humidity
+        hours_to_show: 24
+        refresh_interval: 0
+        type: history-graph
+        title: "[Livingroom] Humidity 1"
+      - elements:
+          - entity: sensor.0x00158...
+            style:
+              left: 40%
+              top: 32%
+            type: state-badge
+          - entity: sensor.0x00158...
+            style:
+              left: 55%
+              top: 32%
+            type: state-badge
+          - entity: binary_sensor.0x00158...
+            style:
+              left: 35%
+              top: 55%
+            type: state-badge
+        image: 'https://demo.home-assistant.io/stub_config/floorplan.png'
+        type: picture-elements
+      - entity: media_player.chromecastcasa
+        type: media-control
+      - type: history-graph
+        entities:
+          - entity: sensor.0x00158d000464e301_temperature
+            name: Temperature
+        hours_to_show: 24
+        refresh_interval: 0
+        title: "[Office] Temperature 1"
+      - type: history-graph
+        entities:
+          - entity: sensor.0x00158...
+            name: Temperature
+        hours_to_show: 24
+        refresh_interval: 0
+        title: "[Office] Humidity 1"
+      - type: history-graph
+        entities:
+          - entity: sensor.0x00158...
+            name: Temperature
+        hours_to_show: 24
+        refresh_interval: 0
+        title: "[Main Bedroom] Temperature 1"
+      - type: history-graph
+        entities:
+          - entity: sensor.0x00158...
+            name: Humidity
+        hours_to_show: 24
+        refresh_interval: 0
+        title: "[Main Bedroom] Humidity 1"
+      - type: entities
+        entities:
+          - sensor.living_room_light_1_linkquality
+      - type: light
+        entity: light.living_room_light_1_light

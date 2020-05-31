@@ -1,0 +1,5 @@
+/playbook.retry
+/hosts
+/group_vars/all/all.yml
+/group_vars/zigbee2mqtt.yml
+/group_vars/homeassistant.yml

@@ -1,0 +1,9 @@
+title: Home
+views:
+  - badges:
+    {{ homeassistant.ui_lovelace.badges | to_nice_yaml(width=80, indent=2) | indent(4) }}
+
+    cards:
+    {{ homeassistant.ui_lovelace.cards | to_nice_yaml(width=80, indent=2) | indent(4) }}
+    path: default_view
+    title: Home

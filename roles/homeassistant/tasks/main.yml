@@ -1,0 +1,71 @@
+---
+- name: Create base directory
+  file:
+    path: "{{ base_directory }}/"
+    state: directory
+    owner: pi
+    group: pi
+    mode: '0744'
+
+- name: Create Mosquitto directory
+  file:
+    path: "{{ base_directory }}/mosquitto/"
+    state: directory
+    owner: pi
+    group: pi
+    mode: '0744'
+
+- name: Create HomeAssistant directory
+  file:
+    path: "{{ base_directory }}/hass/"
+    state: directory
+    owner: pi
+    group: pi
+    mode: '0744'
+
+- name: Copy docker-compose file
+  copy:
+    src: docker-compose.yml
+    dest:  "{{ base_directory }}"
+    owner: pi
+    group: pi
+    mode: '0644'
+
+- name: Template Zigbee2mqtt configuration file
+  template:
+    src: zigbee2mqtt/configuration.yaml.j2
+    dest: "{{ base_directory }}/zigbee2mqtt/data/configuration.yaml"
+    owner: pi
+    group: pi
+
+- name: Copy Mosquitto configuration file
+  copy:
+    src: mosquitto/mosquitto.conf
+    dest: "{{ base_directory }}/mosquitto/"
+    owner: pi
+    group: pi
+
+- name: Copy homeassistant configuration files
+  synchronize:
+    src: hass/
+    dest: "{{ base_directory }}/hass/config/"
+
+- name: Template homeassistant configuration file
+  template:
+    src: hass/configuration.yaml.j2
+    dest: "{{ base_directory }}/hass/config/configuration.yaml"
+    owner: pi
+    group: pi
+
+- name: Template homeassistant ui-lovelace configuration file
+  template:
+    src: hass/ui-lovelace.yaml.j2
+    dest: "{{ base_directory }}/hass/config/ui-lovelace.yaml"
+    owner: pi
+    group: pi
+
+- name: Start services
+  docker_compose:
+    project_src: "{{ base_directory }}"
+    state: present
+    restarted: yes

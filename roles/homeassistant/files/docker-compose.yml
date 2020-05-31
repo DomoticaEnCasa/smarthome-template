@@ -1,0 +1,39 @@
+---
+version: "3.7"
+services:
+  mosquitto:
+    image: eclipse-mosquitto:1.6.9
+    network_mode: host
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto:/mosquitto/config
+      - mosquitto-data-volume:/mosquitto/data
+      - mosquitto-log-volume:/mosquitto/log
+    restart: always
+
+  hass:
+    image: homeassistant/home-assistant:0.108.3
+    network_mode: host
+    volumes:
+      - ./hass/config:/config
+    ports:
+      - 8123:8123
+    restart: always
+
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt:1.12.2
+    network_mode: host
+    volumes:
+      - ./zigbee2mqtt/data:/app/data
+      -  /run/udev:/run/udev:ro
+    privileged: true
+    devices:
+      - /dev/ttyACM0
+    environment:
+      TZ: Europe/Madrid
+    restart: always
+
+volumes:
+  mosquitto-data-volume:
+  mosquitto-log-volume:

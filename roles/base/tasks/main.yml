@@ -1,0 +1,7 @@
+- name: install required packages via apt
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - python-pycurl
+    - git
+    - vim
